@@ -1,10 +1,7 @@
-import _ from 'lodash'
-function component() {
-  const element = document.createElement('div');
+import ReactDOM from 'react-dom'
+import Game from './components/Game'
 
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
-  return element;
-}
-
-document.body.appendChild(component());
+ReactDOM.render(
+  <Game />,
+  document.getElementById('app')
+);
