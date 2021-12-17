@@ -14,7 +14,7 @@ const Game = () => {
   },[])
 
   const clicked = () =>{
-    setTimeout(()=>{ alert(count)},5000)
+    setTimeout(()=>{ alert(count)},6000)
 
 
   }
