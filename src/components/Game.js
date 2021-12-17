@@ -1,11 +1,27 @@
-import {useState} from "react";
+import {useEffect, useState,useCallback, useRef} from "react";
 
 const Game = () => {
+  const countRef =  useRef(0)
+  const [someState,setSomeState] = useState(0)
   const [count,setCount] = useState(0)
-  return (<div>
-    <div>{count}</div>
-    <button onClick={()=>setCount(count+1)}></button>
-  </div>)
+  useEffect(()=>{
+    setInterval(()=>{
+      console.log(countRef.current)
+      //count.num +=1
+      countRef.current++
+      setCount(countRef.current)
+    },1000)
+  },[])
+
+  const clicked = () =>{
+    setTimeout(()=>{ alert(count)},5000)
+
+
+  }
+  return <>
+    <div>{countRef.current}</div>
+    <button onClick={clicked}>Click me</button>
+  </>
 }
 
 export default Game
