@@ -1,28 +1,44 @@
 import React, {useState, useCallback, useMemo,useRef} from 'react';
-
+import {Input,Container,Row,Col,Form,FormGroup} from 'reactstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 type ReactOnChange = (e: React.ChangeEvent<HTMLInputElement>) => void
+type ReactOnFormChange = (e: React.ChangeEvent<HTMLFormElement>) => void
 
 const App = () => {
     const [input, setInput] = useState("")
     const changed: ReactOnChange = (e) => setInput(e.target.value)
     const onChange = useCallback(changed, [])
     const message = useRef("")
+    const [obj,setObj] = useState({})
 
+    const onFormChange = useCallback((e:React.ChangeEvent<HTMLFormElement>) => {
+        const {target:{value,name}} = e
+
+        setObj((obj) => ({...obj,[name]:value}))
+
+    },[])
+    console.log(obj)
     //const InputWithLabelUseMemoVersion = useMemo(()=>(<InputWithLabelUseMemo onChange={onChange} />),[])
     return (
         <>
-            <InputWithLabelReactMemo onChange={onChange} />
-            <div>{message.current}</div>
-            {/*<InputWithLabelNormal onChange={onChange} />*/}
-            <Length input={input}/>
-            <UseRefTest message={message} />
+            <Container>
+                <Row>
+                    <Col xs={4}>
+                        <InputWithLabelReactMemo onChange={onChange} onFormChange={onFormChange}/>
+                        <div>{message.current}</div>
+                        {/*<InputWithLabelNormal onChange={onChange} />*/}
+                        <Length input={input}/>
+                        <UseRefTest message={message} />
+                    </Col>
+                </Row>
+            </Container>
         </>
     )
 }
 /*
  Input withLabelは再描画する必要がないが、実際はonChangeをpropsとして渡されるため再描画されてしまう。
  関数をuseCallbackなしで渡されるとAppのステートが変わるたびに関数が再生成されるため、propsの更新とみなされ再描画される
- しかしuseCallbackありで渡されたとしてもやはり再描画される。
+ しかしuseCallbackありで渡されると、関数は再生性されないが、それでもやはり再描画される。
 
  1.propsの更新
  2.stateの更新
@@ -30,24 +46,32 @@ const App = () => {
 
  のうち一つでも満たすと再レンダリングされてしまうからだ。
  今回の場合親コンポーネント(App)のステートが代わり、再描画されている。
- 再描画されないためにはuseCallbackの上にInputWithLabelにReact.memoやuseMemoを使って親の再描画を無視するようにしなければならない
+ 再描画されないためにはuseCallbackに加えてInputWithLabelにReact.memoやuseMemoを使って親の再描画を無視するようにしなければならない
  これをすると再描画にかかる時間が 0.6ms => ~0.1ms 程度になるため、有効に使うべきだ
+ Memo化してもonChangeなどのイベントは当然取れるがStateを更新してしまえば再描画されるため、Memo化の意味がなくなる
  */
-const InputWithLabelReactMemo = React.memo((prop: { onChange: ReactOnChange }) => {
-    const {onChange} = prop
+const InputWithLabelReactMemo = React.memo((prop: { onChange: ReactOnChange, onFormChange:ReactOnFormChange }) => {
+    const {onChange,onFormChange} = prop
+    const [count,setCount] = useState(0)
 
 
     console.log('!!!!rendering InputWithLabel!!!!')
 
+
+
     return (
         <>
-            <span>Label: </span>
-            <input type="text" onChange={onChange}/>
+            <Form className="form mt-2" onChange={onFormChange}>
+                <FormGroup>
+                    <span>Label: {count}</span>
+                    <Input className="" type="text" name="name" onChange={onChange}/>
+                </FormGroup>
+            </Form>
         </>
     )
 })
 /*
-  UseRefは参照を子要素にわたすことができる。useStateと違い参照を変更することができる。
+  UseRefは参照を子要素にわたすことができる。useStateと違いその値をsetStateなしで変更することができる。
   以下のコンポーネントは親の'App'が再描画されるたびに!が増えていくが親が描画されたあとに追加されるため
   UseRefTest内の!のほうが一つ多くなる。
   ReactMemoでラップした場合 Refの内容が変わったとしても、再描画はされない。
