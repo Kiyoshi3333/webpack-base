@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useRef, memo } from 'react'
-import { Input, Container, Row, Col, Form, FormGroup } from 'reactstrap'
 import { shallowCopy } from '../helpers/common'
 
 type ReactOnChange = (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -27,20 +26,20 @@ const App = () => {
   //const InputWithLabelUseMemoVersion = useMemo(()=>(<InputWithLabelUseMemo onChange={onChange} />),[])
   return (
     <>
-      <Container>
-        <Row>
-          <Col xs={4}>
+      <div>
+        <div>
+          <div>
             <InputWithLabelReactMemo
               onChange={onChange}
               onFormChange={onFormChange}
             />
-            <div className="text-white">{message.current}</div>
+            <div className="">{message.current}</div>
             {/*<InputWithLabelNormal onChange={onChange} />*/}
             <Length input={input} />
             <UseRefTest message={message} />
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
@@ -71,13 +70,14 @@ const InputWithLabel = ({
   const [count, setCount] = useState(0)
   return (
     <>
-      <Form className="form mt-2" onChange={onFormChange}>
-        <FormGroup>
-          <h2 className="text-white">Tailwind</h2>
+      <form className="form text" onChange={onFormChange}>
+        <div className="">
+          <h2 className="">Tailwinds</h2>
           <span>Label: {count}</span>
-          <Input className="" type="text" name="name" onChange={onChange} />
-        </FormGroup>
-      </Form>
+          <input className="ml-3 bg-input p-3.5 text-lg border border-purple-200 hover:text-white hover:bg-purple-600"
+                   type="text" name="name" onChange={onChange} />
+        </div>
+      </form>
     </>
   )
 }
