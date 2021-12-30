@@ -6,7 +6,16 @@ function shallowCopy<T extends object>(obj: T) {
   }
   return result
 }
-export { shallowCopy }
+
+const asyncFunc = (): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true)
+    }, 1000)
+  })
+}
+
+export { shallowCopy, asyncFunc }
 // interface User {
 //   name: string,
 //   id: number

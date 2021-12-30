@@ -1,17 +1,11 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-module.exports = {
-  mode: "development",
+const config = {
   entry: "./src/index.tsx",
-  devtool: "inline-source-map",
-  devServer: {
-    static: false,
-    hot: true,
-  },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Output Management",
       template: "./src/index.html",
     }),
   ],
@@ -23,7 +17,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|ts|jsx|tsx)$/,
         exclude: /node_modules/,
         loader: "babel-loader",
         options: {
@@ -32,11 +26,13 @@ module.exports = {
               "@babel/env",
               {
                 useBuiltIns: "usage",
-                corejs: 2,
+                targets: {"ie":11},
+                corejs: 3,
               },
             ],
-            ["@babel/preset-react", { runtime: "automatic" }],
+            ["@babel/react", { runtime: "automatic" }],
           ],
+          plugins:[]
         },
       },
       {
@@ -77,3 +73,19 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
 };
+
+module.exports = (env,argv) => {
+  if (argv.mode === 'development') {
+    config.devtool = 'source-map'
+    config.devServer = {
+      hot: true,
+    }
+    config.module.rules[0].options.plugins.push(require.resolve('react-refresh/babel'))
+    config.plugins.push(new ReactRefreshWebpackPlugin())
+    config.target = ['web']
+  }
+  if (argv.mode === 'production') {
+    config.target = ['web','es5']
+  }
+  return config
+}
