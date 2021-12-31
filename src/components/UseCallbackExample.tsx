@@ -6,7 +6,15 @@ import React, {
   memo,
   useEffect,
 } from 'react'
-import { shallowCopy, asyncFunc } from '../helpers/common'
+import {
+  shallowCopy,
+  asyncFunc,
+  delay,
+  sleep,
+  asyncCallback,
+} from '../helpers/common'
+import { MyError } from '../errors'
+import { GeneratorOptions } from '@babel/core'
 
 type ReactOnChange = (e: React.ChangeEvent<HTMLInputElement>) => void
 type ReactOnFormChange = (e: React.ChangeEvent<HTMLFormElement>) => void
@@ -27,6 +35,7 @@ const App = () => {
   const message = useRef('')
   const [obj, setObj] = useState({})
   const [users, setUsers] = useState<user[]>([])
+
   const listUsers = useMemo(
     () =>
       users.map((item) => {
@@ -64,6 +73,12 @@ const App = () => {
     }
     f().then((data) => {
       setUsers(data)
+      ;(async () => {
+        asyncCallback(async () => {
+          await sleep(5000)
+          return 5000
+        })
+      })()
     })
   }, [])
   //const InputWithLabelUseMemoVersion = useMemo(()=>(<InputWithLabelUseMemo onChange={onChange} />),[])

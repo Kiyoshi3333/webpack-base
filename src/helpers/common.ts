@@ -1,5 +1,7 @@
+import * as errors from '../errors'
+import { MyError } from '../errors'
 // <T> and <T extends Object> are equivalent.
-function shallowCopy<T extends object>(obj: T) {
+export function shallowCopy<T extends object>(obj: T) {
   const result = {} as T
   for (const key in obj) {
     result[key] = obj[key]
@@ -7,15 +9,48 @@ function shallowCopy<T extends object>(obj: T) {
   return result
 }
 
-const asyncFunc = (): Promise<boolean> => {
+export function sum(a = 0, b = 0) {
+  return a + b
+}
+
+export const asyncFunc = (num: number): Promise<number> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(true)
-    }, 1000)
+      if (num > 1) reject(new MyError(1, 'Oops!'))
+      else resolve(num)
+    }, 100)
   })
 }
 
-export { shallowCopy, asyncFunc }
+export const syncFunc = () => {
+  throw new MyError(1, 'error')
+}
+
+export function* generatorAsync<T>(callback: AnonymousFunction<T>) {
+  yield* callback()
+}
+
+export function delay<T>(milliseconds: number, count: T): Promise<T> {
+  return new Promise<T>((resolve) => {
+    setTimeout(() => {
+      resolve(count)
+    }, milliseconds)
+  })
+}
+
+export const sleep = (wait: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, wait))
+}
+
+export function asyncCallback(callback: () => Promise<number>): void {
+  callback()
+    .then((data) => {
+      console.warn(data)
+    })
+    .catch((e) => {
+      console.error(e)
+    })
+}
 // interface User {
 //   name: string,
 //   id: number
