@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "jest",
-    "test-watch": "jest --watch",
+    "test": "jest --env=jsdom",
+    "test-watch": "jest --watch --env=jsdom",
     "build": "webpack --mode=production",
     "watch": "webpack --mode=development  --watch",
     "start": "webpack serve --mode=development",
@@ -53,6 +53,7 @@
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.1.0",
     "react": "^17.0.2",
+    "react-app-polyfill": "^3.0.0",
     "react-dom": "^17.0.2",
     "reactstrap": "^9.0.1",
     "tailwindcss": "^3.0.8"

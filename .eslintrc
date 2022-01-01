@@ -14,7 +14,7 @@
     "SharedArrayBuffer": "readonly",
     "React": "writable"
   },
-  "ignorePatterns": ["build", "dist","webpack.config.js"],
+  "ignorePatterns": ["build", "dist","webpack.config.js","__tests__"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": { "jsx": true },

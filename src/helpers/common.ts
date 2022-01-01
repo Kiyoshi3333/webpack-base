@@ -30,10 +30,10 @@ export function* generatorAsync<T>(callback: AnonymousFunction<T>) {
   yield* callback()
 }
 
-export function delay<T>(milliseconds: number, count: T): Promise<T> {
+export function delay<T>(milliseconds: number, message: T): Promise<T> {
   return new Promise<T>((resolve) => {
     setTimeout(() => {
-      resolve(count)
+      resolve(message)
     }, milliseconds)
   })
 }
