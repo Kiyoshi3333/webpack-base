@@ -19,21 +19,7 @@ const config = {
       {
         test: /\.[jt](s|sx)$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
-        options: {
-          presets: [
-            [
-              "@babel/env",
-              {
-                useBuiltIns: "usage",
-                targets: {"ie":11},
-                corejs: 3,
-              },
-            ],
-            ["@babel/react", { runtime: "automatic" }],
-          ],
-          plugins:[]
-        },
+        use: "babel-loader"
       },
       {
         test: /\.tsx?$/,
@@ -80,7 +66,6 @@ module.exports = (env,argv) => {
     config.devServer = {
       hot: true,
     }
-    config.module.rules[0].options.plugins.push(require.resolve('react-refresh/babel'))
     config.plugins.push(new ReactRefreshWebpackPlugin())
     config.target = ['web']
   }

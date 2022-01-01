@@ -3,7 +3,7 @@ import TestComponent from '../components/Test'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
 // eslint-disable-current-page no-undef
-let container: any = null
+let container = null
 // eslint-disable-next-line no-undef
 beforeEach(() => {
   // setup a DOM element as a render target
