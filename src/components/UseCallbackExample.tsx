@@ -110,19 +110,19 @@ const App = () => {
   )
 }
 /*
- Input withLabelは再描画する必要がないが、実際はonChangeをpropsとして渡されるため再描画されてしまう。
- 関数をuseCallbackなしで渡されるとAppのステートが変わるたびに関数が再生成されるため、propsの更新とみなされ再描画される
- しかしuseCallbackありで渡されると、関数は再生性されないが、それでもやはり再描画される。
-
- 1.propsの更新
- 2.stateの更新
- 3.親コンポーネントが再レンダリングされた時
-
- のうち一つでも満たすと再レンダリングされてしまうからだ。
- 今回の場合親コンポーネント(App)のステートが代わり、再描画されている。
- 再描画されないためにはuseCallbackに加えてInputWithLabelにReact.memoやuseMemoを使って親の再描画を無視するようにしなければならない
- これをすると再描画にかかる時間が 0.6ms => ~0.1ms 程度になるため、有効に使うべきだ
- Memo化してもonChangeなどのイベントは当然取れるがStateを更新してしまえば再描画されるため、Memo化の意味がなくなる
+ *Input withLabelは再描画する必要がないが、実際はonChangeをpropsとして渡されるため再描画されてしまう。
+ *関数をuseCallbackなしで渡されるとAppのステートが変わるたびに関数が再生成されるため、propsの更新とみなされ再描画される
+ *しかしuseCallbackありで渡されると、関数は再生性されないが、それでもやはり再描画される。
+ *
+ *1.propsの更新
+ *2.stateの更新
+ *3.親コンポーネントが再レンダリングされた時
+ *
+ *のうち一つでも満たすと再レンダリングされてしまうからだ。
+ *今回の場合親コンポーネント(App)のステートが代わり、再描画されている。
+ *再描画されないためにはuseCallbackに加えてInputWithLabelにReact.memoやuseMemoを使って親の再描画を無視するようにしなければならない
+ *これをすると再描画にかかる時間が 0.6ms => ~0.1ms 程度になるため、有効に使うべきだ
+ *Memo化してもonChangeなどのイベントは当然取れるがStateを更新してしまえば再描画されるため、Memo化の意味がなくなる
  */
 const InputWithLabel = ({
   onChange,
@@ -131,8 +131,10 @@ const InputWithLabel = ({
   onChange: ReactOnChange
   onFormChange: ReactOnFormChange
 }) => {
-  //const InputWithLabel = React.memo((prop: { onChange: ReactOnChange, onFormChange:ReactOnFormChange }) => {
-  //const {onChange,onFormChange} = prop
+  /*
+   * const InputWithLabel = React.memo((prop: { onChange: ReactOnChange, onFormChange:ReactOnFormChange }) => {
+   * const {onChange,onFormChange} = prop
+   */
 
   return (
     <>
@@ -165,10 +167,10 @@ const InputWithLabel = ({
 }
 const InputWithLabelReactMemo = memo(InputWithLabel)
 /*
-  UseRefは参照を子要素にわたすことができる。useStateと違いその値をsetStateなしで変更することができる。
-  以下のコンポーネントは親の'App'が再描画されるたびに!が増えていくが親が描画されたあとに追加されるため
-  UseRefTest内の!のほうが一つ多くなる。
-  ReactMemoでラップした場合 Refの内容が変わったとしても、再描画はされない。
+ * UseRefは参照を子要素にわたすことができる。useStateと違いその値をsetStateなしで変更することができる。
+ * 以下のコンポーネントは親の'App'が再描画されるたびに!が増えていくが親が描画されたあとに追加されるため
+ * UseRefTest内の!のほうが一つ多くなる。
+ * ReactMemoでラップした場合 Refの内容が変わったとしても、再描画はされない。
  */
 const UseRefTest = (prop: { message: React.MutableRefObject<string> }) => {
   prop.message.current += '!'

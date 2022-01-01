@@ -1,7 +1,8 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest/globals" : true
   },
   "extends": [
     "eslint:recommended",
@@ -14,7 +15,7 @@
     "SharedArrayBuffer": "readonly",
     "React": "writable"
   },
-  "ignorePatterns": ["build", "dist","webpack.config.js","__tests__"],
+  "ignorePatterns": ["build", "dist","*.config.js"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": { "jsx": true },
@@ -22,13 +23,14 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "react", "prettier"],
+  "plugins": ["@typescript-eslint", "react", "prettier", "jest"],
   "rules": {
     "prettier/prettier": ["error", {
       "singleQuote": true,
       "semi": false
     }],
-    "no-console": ["error", { "allow": ["warn", "error"] }]
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "multiline-comment-style": ["error", "starred-block"]
   },
   "settings": { "react": { "version": "detect" } }
 }

@@ -2,16 +2,15 @@ import React from 'react'
 import TestComponent from '../components/Test'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
-// eslint-disable-current-page no-undef
+
 let container = null
-// eslint-disable-next-line no-undef
+
 beforeEach(() => {
   // setup a DOM element as a render target
   container = document.createElement('div')
   document.body.appendChild(container)
 })
 
-// eslint-disable-next-line no-undef
 afterEach(() => {
   // cleanup on exiting
   unmountComponentAtNode(container)
@@ -20,6 +19,7 @@ afterEach(() => {
 })
 
 it('renders with or without a name', () => {
+  expect.assertions(3)
   act(() => {
     render(<TestComponent />, container)
   })

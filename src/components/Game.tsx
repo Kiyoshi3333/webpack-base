@@ -14,6 +14,7 @@ const Game = (props: GameProps<string>): JSX.Element | null => {
     }, 5000)
   }, [])
   const threshold = 1000
+  const th = 10
   return count > threshold ? (
     <>
       <div>{count}</div>

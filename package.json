@@ -9,7 +9,7 @@
     "build": "webpack --mode=production",
     "watch": "webpack --mode=development  --watch",
     "start": "webpack serve --mode=development",
-    "lint": "eslint --ext .jsx,.js,.tsx,.ts .",
+    "lint": "eslint --fix --ext .jsx,.js,.tsx,.ts .",
     "fmt": "prettier --write '**/*.{js,json,md,html}'"
   },
   "keywords": [],
@@ -29,6 +29,7 @@
     "css-loader": "^6.5.1",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.3.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
