@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "jest/globals" : true
+    "jest/globals" : true,
+    "node": true //To allow node globals
   },
   "extends": [
     "eslint:recommended",
@@ -15,7 +16,7 @@
     "SharedArrayBuffer": "readonly",
     "React": "writable"
   },
-  "ignorePatterns": ["build", "dist","*.config.js"],
+  "ignorePatterns": ["build", "dist"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": { "jsx": true },
@@ -30,7 +31,8 @@
       "semi": false
     }],
     "no-console": ["error", { "allow": ["warn", "error"] }],
-    "multiline-comment-style": ["error", "starred-block"]
+    "multiline-comment-style": ["error", "starred-block"],
+    "@typescript-eslint/no-var-requires": 0
   },
   "settings": { "react": { "version": "detect" } }
 }

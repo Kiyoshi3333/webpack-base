@@ -1,4 +1,7 @@
+import * as errors from '../errors'
+import * as Common from '../@types/common'
 import { MyError } from '../errors'
+
 // <T> and <T extends Object> are equivalent.
 export function shallowCopy<T extends object>(obj: T) {
   const result = {} as T
@@ -25,7 +28,7 @@ export const syncFunc = () => {
   throw new MyError(1, 'error')
 }
 
-export function* generatorAsync<T>(callback: AnonymousFunction<T>) {
+export function* generatorAsync<T>(callback: Common.AnonymousFunction<T>) {
   yield* callback()
 }
 
@@ -50,10 +53,6 @@ export function asyncCallback(callback: () => Promise<number>): void {
       console.error(e)
     })
 }
-/*
- * fafa
- * fafa
- */
 
 // interface User {
 //   name: string,

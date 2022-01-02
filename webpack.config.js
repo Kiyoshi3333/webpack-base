@@ -1,45 +1,42 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 const config = {
-  entry: "./src/index.tsx",
+  entry: './src/index.tsx',
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: './public/index.html',
     }),
   ],
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
   module: {
     rules: [
       {
-        test: /\.[jt](s|sx)$/,
+        test: /\.[j](s|sx)$/,
         exclude: /node_modules/,
-        use: "babel-loader"
+        use: 'babel-loader',
       },
       {
         test: /\.[t](sx?)$/,
-        use: "ts-loader",
+        use: 'ts-loader',
         exclude: /node_modules/,
       },
       {
         test: /\.css$/i,
         use: [
-          "style-loader",
-          "css-loader",
+          'style-loader',
+          'css-loader',
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               postcssOptions: {
                 ident: 'postcss',
-                plugins: [
-                  require("tailwindcss"),
-                  require("autoprefixer")
-                ],
+                plugins: [require('tailwindcss'), require('autoprefixer')],
               },
             },
           },
@@ -47,20 +44,20 @@ const config = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: ['.tsx', '.ts', '.js'],
   },
-};
+}
 
-module.exports = (env,argv) => {
+module.exports = (env, argv) => {
   if (argv.mode === 'development') {
     config.devtool = 'source-map'
     config.devServer = {
@@ -70,7 +67,7 @@ module.exports = (env,argv) => {
     config.target = ['web']
   }
   if (argv.mode === 'production') {
-    config.target = ['web','es5']
+    config.target = ['web', 'es5']
   }
   return config
 }

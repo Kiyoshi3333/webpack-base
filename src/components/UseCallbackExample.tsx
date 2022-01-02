@@ -13,13 +13,14 @@ import {
   sleep,
   asyncCallback,
 } from '../helpers/common'
+import Form from './Form'
 import { MyError } from '../errors'
 import { GeneratorOptions } from '@babel/core'
 
-type ReactOnChange = (e: React.ChangeEvent<HTMLInputElement>) => void
-type ReactOnFormChange = (e: React.ChangeEvent<HTMLFormElement>) => void
 type user = { id: number; name: string; createdAt: string }
 type TransformUser = (user: user) => user & { updatedAt: string }
+type ReactOnChange = (e: React.ChangeEvent<HTMLInputElement>) => void
+type ReactOnFormChange = (e: React.ChangeEvent<HTMLFormElement>) => void
 
 const transformUser: TransformUser = (user) => {
   return {
@@ -53,7 +54,7 @@ const App = () => {
 
   const onFormChange = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
     const {
-      target: { value, name, type, checked },
+      target: { id, value, name, type, checked },
     } = e
     let storeValue: string | boolean
     if (type === 'checkbox') {
@@ -61,7 +62,7 @@ const App = () => {
     } else {
       storeValue = value
     }
-    setObj((obj) => ({ ...obj, [name]: storeValue }))
+    setObj((obj) => ({ ...obj, [id]: storeValue }))
   }, [])
   useEffect(() => {
     if (users.length) return
@@ -90,7 +91,7 @@ const App = () => {
             <div>{JSON.stringify(obj)}</div>
             <details className="bg-white open:bg-gray-100">
               <summary className="text-white text-main">Details</summary>
-              Something small enough to escape casual notice.
+              Something small enough to escape casual notice..
             </details>
           </div>
           <div>
@@ -138,30 +139,7 @@ const InputWithLabel = ({
 
   return (
     <>
-      <form className="form text" onChange={onFormChange}>
-        <div className="p-0 grid xl:grid-cols-2">
-          <h2 className="">Tailwinds</h2>
-          <div className="p-0 grid grid-cols-2 max-w-xs	">
-            <label htmlFor="name">Name:</label>
-            <input
-              className="ml-3 bg-input p-1 text-lg border border-purple-100 hover:text-white hover:bg-purple-100"
-              type="text"
-              name="name"
-            />
-          </div>
-          <div>
-            <label htmlFor="name">Email:</label>
-            <input
-              className="ml-3 bg-input p-1 text-lg border border-purple-200 hover:text-white hover:bg-purple-100"
-              type="email"
-              name="email"
-            />
-          </div>
-          <div>
-            <input type="checkbox" name="agree" value={1} />
-          </div>
-        </div>
-      </form>
+      <Form onFormChange={onFormChange} />
     </>
   )
 }

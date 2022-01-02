@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undef
 module.exports = {
   presets: [
     [
@@ -11,8 +10,8 @@ module.exports = {
     ],
     ['@babel/react', { runtime: 'automatic' }],
   ],
-  // eslint-disable-next-line no-undef
   plugins: [
+    //To get the NODE_ENV the package.json's script has to have NODE_ENV=development
     process.env.NODE_ENV === 'development' &&
       require.resolve('react-refresh/babel'),
   ].filter(Boolean),
