@@ -1,5 +1,5 @@
 import * as errors from '../errors'
-import * as Common from '../@types/common'
+
 import { MyError } from '../errors'
 
 // <T> and <T extends Object> are equivalent.
@@ -28,7 +28,7 @@ export const syncFunc = () => {
   throw new MyError(1, 'error')
 }
 
-export function* generatorAsync<T>(callback: Common.AnonymousFunction<T>) {
+export function* generatorAsync<T>(callback: AnonymousFunction<T>) {
   yield* callback()
 }
 

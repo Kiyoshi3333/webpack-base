@@ -64,8 +64,14 @@ const App = () => {
     }
     setObj((obj) => ({ ...obj, [id]: storeValue }))
   }, [])
+
+  const returnAnimal = (animal: Animal) => {
+    return `${animal} Get!`
+  }
   useEffect(() => {
     if (users.length) return
+    const animal = returnAnimal('cat') //OK
+    //const animal = returnAnimal('elephant') //Type error
     const f = async () => {
       const res = await fetch(
         'https://61cc72dc198df60017aec0a7.mockapi.io/api/users'

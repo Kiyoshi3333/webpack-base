@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactOnFormChange } from '../@types/Form'
 
 /*
  * type ReactOnChange = (e: React.ChangeEvent<HTMLInputElement>) => void
