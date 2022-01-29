@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes slide {
+    from {
+        background-color: orange;
+        color: #000;
+        margin-left: 20%;
+    }
+
+    to {
+        background-color: orange;
+        color: #000;
+        margin-left: 80%;
+    }
+}
+
+.product-name{
+    @apply w-full text-2xl
+}

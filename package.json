@@ -1,5 +1,5 @@
 {
-  "name": "webpack-base",
+  "name": "webpack-base-2021-12-16",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -23,9 +23,11 @@
     "@types/jest": "^27.4.0",
     "@types/lodash": "^4.14.178",
     "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.21",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
     "babel-loader": "^8.2.3",
+    "babel-plugin-styled-components": "^2.0.2",
     "css-loader": "^6.5.1",
     "eslint": "^8.5.0",
     "eslint-config-prettier": "^8.3.0",
@@ -58,6 +60,7 @@
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^17.0.2",
     "reactstrap": "^9.0.1",
+    "styled-components": "^5.3.3",
     "tailwindcss": "^3.0.8"
   }
 }

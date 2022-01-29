@@ -11,6 +11,7 @@ module.exports = {
     ['@babel/react', { runtime: 'automatic' }],
   ],
   plugins: [
+    ['styled-components', { ssr: true }],
     //To get the NODE_ENV the package.json's script has to have NODE_ENV=development
     process.env.NODE_ENV === 'development' &&
       require.resolve('react-refresh/babel'),

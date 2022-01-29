@@ -4,14 +4,14 @@ import React, {
   useRef,
   useMemo,
   memo,
-  useEffect,
+  useEffect
 } from 'react'
 import {
   shallowCopy,
   asyncFunc,
   delay,
   sleep,
-  asyncCallback,
+  asyncCallback
 } from '../helpers/common'
 import Form from './Form'
 import { MyError } from '../errors'
@@ -25,7 +25,7 @@ type ReactOnFormChange = (e: React.ChangeEvent<HTMLFormElement>) => void
 const transformUser: TransformUser = (user) => {
   return {
     ...user,
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
 }
 
@@ -42,7 +42,7 @@ const App = () => {
       users.map((item) => {
         const transformed = transformUser(item)
         return (
-          <div key={item.id} className="mt-2 first:mt-0 odd:bg-gray-200 p-2">
+          <div key={item.id} className='mt-2 first:mt-0 odd:bg-gray-200 p-2'>
             <div>
               {transformed.name} {transformed.updatedAt}
             </div>
@@ -54,7 +54,7 @@ const App = () => {
 
   const onFormChange = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
     const {
-      target: { id, value, name, type, checked },
+      target: { id, value, name, type, checked }
     } = e
     let storeValue: string | boolean
     if (type === 'checkbox') {
@@ -91,12 +91,12 @@ const App = () => {
   //const InputWithLabelUseMemoVersion = useMemo(()=>(<InputWithLabelUseMemo onChange={onChange} />),[])
   return (
     <>
-      <div className="md:container md:mx-auto p-2">
-        <div className="grid grid-cols-1 xl:grid-cols-2">
+      <div className='md:container md:mx-auto p-2'>
+        <div className='grid grid-cols-1 xl:grid-cols-2'>
           <div>
             <div>{JSON.stringify(obj)}</div>
-            <details className="bg-white open:bg-gray-100">
-              <summary className="text-white text-main">Details</summary>
+            <details className='bg-white open:bg-gray-100'>
+              <summary className='text-white text-main'>Details</summary>
               Something small enough to escape casual notice..
             </details>
           </div>
@@ -105,7 +105,7 @@ const App = () => {
               onChange={onChange}
               onFormChange={onFormChange}
             />
-            <div className="">{message.current}</div>
+            <div className=''>{message.current}</div>
             <div>{listUsers}</div>
             {/*<InputWithLabelNormal onChange={onChange} />*/}
             <Length input={input} />
@@ -132,9 +132,9 @@ const App = () => {
  *Memo化してもonChangeなどのイベントは当然取れるがStateを更新してしまえば再描画されるため、Memo化の意味がなくなる
  */
 const InputWithLabel = ({
-  onChange,
-  onFormChange,
-}: {
+                          onChange,
+                          onFormChange
+                        }: {
   onChange: ReactOnChange
   onFormChange: ReactOnFormChange
 }) => {
