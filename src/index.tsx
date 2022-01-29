@@ -7,4 +7,5 @@ import Intersection from './components/Intersection'
 import Grid from './components/Grid'
 import Animation from './components/Animation'
 import TailwindGrid from './components/TailwindGrid'
-ReactDOM.render(<TailwindGrid />, document.getElementById('app'))
+import Layout from './components/Layout'
+ReactDOM.render(<Intersection />, document.getElementById('app'))

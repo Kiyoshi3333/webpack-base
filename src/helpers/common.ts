@@ -15,6 +15,14 @@ export function sum(a = 0, b = 0) {
   return a + b
 }
 
+export function range(from: number, to: number): Array<number> {
+  const a = []
+  for (let i = from; i < to; i++) {
+    a.push(i)
+  }
+  return a
+}
+
 export const asyncFunc = (num: number): Promise<number> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

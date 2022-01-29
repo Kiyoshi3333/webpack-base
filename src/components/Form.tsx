@@ -6,7 +6,7 @@ import React from 'react'
  */
 const Form = (prop: { onFormChange: ReactOnFormChange }) => {
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full max-w-xs h-">
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         onChange={prop.onFormChange}
