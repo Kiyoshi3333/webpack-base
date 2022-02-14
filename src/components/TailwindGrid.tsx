@@ -1,24 +1,50 @@
+import { APICall } from './APICall'
+import React, { useEffect, useState } from 'react'
+
 const TailwindGrid = () => {
+  const [members, setMembers] = useState<Member[]>([])
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await APICall()
+      setMembers(data)
+    }
+    fetchData()
+  }, [])
+
   return (
     <>
-      <div className="grid grid-cols-3 grid-flow-row gap-2 ">
-        <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
-        <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
-        <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
-        <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
-        <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
+      <div className="grid grid-cols-3 gap-4 mt-3 justify-items-center place-content-center">
+        <div className="">
+          <img
+            className="ts-preview-img"
+            width={485}
+            height={334}
+            src="https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?&cs=tinysrgb&dpr=3&h=1500&w=2520"
+          />
+        </div>
+        <div className="flex-shrink">b</div>
+        <div className="flex-auto">c</div>
+        <div className="flex-auto">d</div>
+        <div className="">e</div>
+        <div className="">f</div>
       </div>
-      <div className="grid grid-cols-3 gap-4 mt-3 justify-items-center">
-        <div className="w-100 col-span-3 h-4 bg-teal-400">a</div>
-        <div className="w-100 col-span-1 h-4 bg-teal-400">b</div>
-        <div className="w-100 col-span-2 h-4 bg-teal-400">c</div>
-        <div className="w-100 col-span-1 h-4 bg-teal-400">d</div>
-        <div className="w-100 col-span-1 h-4 bg-teal-400">e</div>
-        <div className="w-100 col-span-1 h-4 bg-teal-400">f</div>
+      <div className="grid gap-2 grid-cols-3 p-2 hidden">
+        {members.map((member) => (
+          <div
+            key={member.id}
+            style={{ height: '100px' }}
+            className="h-4 bg-teal-400"
+          >
+            {member.id} {member.name}
+          </div>
+        ))}
       </div>
+
       <p>レスポンシブ</p>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 mt-3">
-        <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
+        <div style={{ height: '100px' }} className="h-4 bg-teal-400">
+          <div></div>
+        </div>
         <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
         <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>
         <div style={{ height: '100px' }} className="h-4 bg-teal-400"></div>

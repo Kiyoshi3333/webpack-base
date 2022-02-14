@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import React, { useEffect, useRef, useState } from 'react'
 import { rangeRight } from 'lodash'
 
