@@ -73,9 +73,7 @@ const Grid = (props: GridProps) => {
         <Box1 className="border-red-500">
           <div>Hello</div>
         </Box1>
-        <Box2 className="border-red-500">
-          <div>fafa</div>
-        </Box2>
+        <Box2 className="border-red-500"></Box2>
         <ForwardRefSelect name={'select'} options={options} ref={ref} />
         {/*<Box4></Box4>*/}
         {/*<Box5></Box5>*/}

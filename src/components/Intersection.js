@@ -1,81 +1,72 @@
-import styled from 'styled-components'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { rangeRight } from 'lodash'
 
-const Wrapper = styled.div`
-  width: 90vw;
-  background-color: green;
-  margin: 0 auto;
-  height: 2500px;
-`
+let cards = []
+const numberOfAddingCard = 30
+const numArray = rangeRight(0, numberOfAddingCard)
+let i = 1
+const pushCards = () => {
+  const newCards = numArray.map((index) => {
+    return (
+      <div key={i + index} className="bg-amber-300 h-20">
+        Hello{i + index}
+      </div>
+    )
+  })
+  cards = cards.concat(newCards.reverse())
+  i += numberOfAddingCard
+}
 
-const Inner1 = styled.div`
-  width: 100%;
-  background-color: grey;
-  height: 250px;
-`
-
-const Inner2 = styled.div`
-  width: 100%;
-  background-color: blue;
-  height: 250px;
-`
-const NegativeMarginWrapper = styled.div`
-  
-  background-color: blue;
-  height: 250px;
-  width: 200px;
-`
-const NegativeMargin = styled.div`
-  
-  background-color: blue;
-  height: 250px;
-  display:flex;
-  margin-right: -50px;
-  margin-left: -50px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-`
-
-const Col = styled.div`
-  max-width: 50%;
-  padding: 0 50px;
-  flex-basis: 50%;
-  flex-grow: 0;
-  flex-shrink: 0;
-  height: 250px;
-  position: relative;
-  width: 100%;
-  text-size-adjust: 100%;
-  text-align: left;
-`
-
+pushCards()
 
 const Intersection = () => {
-  const ref = useRef()
+  const rootRef = useRef()
+  const cardsRef = useRef([])
+  const [cardAdded, setCardAdded] = useState(0)
 
   useEffect(() => {
     let options = {
-      root: document.documentElement,
+      root: rootRef.current,
       rootMargin: '0px',
-      threshold: [0.25, 0.5],
+      threshold: [0.5],
     }
-    let observer = new IntersectionObserver((e) => {
-      console.warn(e, 'intersection')
-    }, options)
-    console.log(ref.current)
-    observer.observe(ref.current)
-  }, [])
-  return (
-    <Wrapper>
-      <Inner1></Inner1>
-      <Inner2 ref={ref}></Inner2>
-      <NegativeMarginWrapper>
-        <NegativeMargin>
-          <Col><div>fafa</div></Col><Col>fafafa</Col>
-        </NegativeMargin>
-      </NegativeMarginWrapper>
 
-    </Wrapper>
+    let observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('animate-pulse', entry.isIntersecting)
+
+        if (entry.isIntersecting) {
+          observer.unobserve(entry.target)
+          pushCards()
+          setTimeout(() => {
+            setCardAdded(cardAdded + 1)
+          }, 100)
+        }
+      })
+    }, options)
+
+    /*
+     * cardsRef.current.forEach((ref) => {
+     *   observer.observe(ref)
+     * })
+     */
+    //Observe only the last element
+    if (cardsRef.current.slice(-1)[0])
+      observer.observe(cardsRef.current[cardsRef.current.length - 1])
+  }, [cardAdded])
+
+  return (
+    <div className="grid place-content-center h-screen" id="root">
+      <div className="overflow-y-scroll h-500px border-2 w-500px" ref={rootRef}>
+        <div className="h-2000px grid grid-cols-1 place-content-start">
+          {cards.map((card, i) => (
+            <div key={i} ref={(el) => (cardsRef.current[i] = el)}>
+              {card}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-from {
-    background-color: orange;
-    color: #000;
-    margin-left: 20%;
-}
 @keyframes slide {
+    from {
+        background-color: orange;
+        color: #000;
+        margin-left: 20%;
+    }
 
     to {
         background-color: orange;
@@ -15,7 +15,73 @@ from {
         margin-left: 80%;
     }
 }
+@keyframes left-to-right {
+    0% {
+        background-color: red;
+        transform: translateX(0);
+    }
+    33% {
+        transform: translateY(100%);
+    }
+    66%{
+        transform: translateX(100%) translateY(100%);
+    }
+    100% {
+        background-color: green;
+        transform: translateX(100%)
+    }
 
-.product-name {
-    @apply w-full text-2xl text-2xl;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: fit-content(100px) 1fr;
+    grid-auto-flow: row;
+}
+.w-200px{
+    width: 200px;
+}
+.w-500px{
+    width: 500px;
+}
+
+@media (max-width: 560px){
+    .grid-container{
+        grid-template-columns: 1fr;
+    }
+}
+
+/*.ts-preview{*/
+/*    flex:0 0 calc(33.33%);*/
+/*    width:100%;*/
+/*    position: relative;*/
+/*}*/
+
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+.ts-preview-img{
+
+    width: 100%;
+    height: auto;
+}
+
+.ts-preview label{
+    margin-bottom:0;
+    width: 100%;
+    padding-bottom: 56.25%; /* 9/16 = aspect ratio of image */
+    position: relative;
+    display: block;
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #fafafa 8%, #f4f4f4 38%, #fafafa 54%);
+    background-size: 1000px 640px;
 }
